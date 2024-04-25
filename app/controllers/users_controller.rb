@@ -2,19 +2,20 @@ class UsersController < ApplicationController
 
   def edit
   end
-
-end
-
-def update
-  if current_user.update(user_params)
-    redirect_to root_path
-  else
-    render :edit, status: :unprocessable_entity
+  
+  def update
+    if current_user.update(user_params)
+      redirect_to root_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
+  
+  private
+  
+  def user_params
+    params.require(:user).permit(:name, :email)
+  end
+  
 end
 
-private
-
-def user_params
-  params.require(:user).permit(:name, :email)
-end
